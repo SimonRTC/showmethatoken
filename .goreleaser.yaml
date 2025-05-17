@@ -1,0 +1,55 @@
+version: 2
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+
+builds:
+  - id: showmethatoken
+    binary: showmethatoken
+    main: ./cmd/main.go
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+
+docker_manifests:
+  - name_template: "{{ .Env.DOCKER_REGISTRY }}/{{ .Env.DOCKER_REGISTRY_NAMESPACE }}/showmethatoken:{{ .Version }}"
+    image_templates:
+      - "{{ .Env.DOCKER_REGISTRY }}/{{ .Env.DOCKER_REGISTRY_NAMESPACE }}/showmethatoken:{{ .Version }}-amd64"
+      - "{{ .Env.DOCKER_REGISTRY }}/{{ .Env.DOCKER_REGISTRY_NAMESPACE }}/showmethatoken:{{ .Version }}-arm64"
+
+dockers:
+  - ids:
+      - showmethatoken
+    goarch: amd64
+    image_templates:
+      - "{{ .Env.DOCKER_REGISTRY }}/{{ .Env.DOCKER_REGISTRY_NAMESPACE }}/showmethatoken:{{ .Version }}-amd64"
+    use: buildx
+    dockerfile: ./Dockerfile
+    build_flag_templates:
+      - "--platform=linux/amd64"
+      - "--label=org.opencontainers.image.title=showmethatoken"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+  - ids:
+      - showmethatoken
+    goarch: arm64
+    image_templates:
+      - "{{ .Env.DOCKER_REGISTRY }}/{{ .Env.DOCKER_REGISTRY_NAMESPACE }}/showmethatoken:{{ .Version }}-arm64"
+    use: buildx
+    dockerfile: ./Dockerfile
+    build_flag_templates:
+      - "--platform=linux/arm64"
+      - "--label=org.opencontainers.image.title=showmethatoken"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
