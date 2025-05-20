@@ -52,18 +52,20 @@ To publish Docker images, make sure to define the following environment variable
 
 * `DOCKER_REGISTRY`: the target container registry (e.g. `ghcr.io`, `docker.io`, or your internal registry)
 * `DOCKER_REGISTRY_NAMESPACE`: the namespace or organization in the registry (e.g. `mycompany`, `username`)
+* `GITHUB_TOKEN`: your GITHUB Token
 
-### Example:
+### Examples
 
 ```bash
 export DOCKER_REGISTRY=docker.io
 export DOCKER_REGISTRY_NAMESPACE=myorg
-make release
+export GITHUB_TOKEN=mytoken
+goreleaser release
 ```
 
 GoReleaser will tag, build, and push the image as:
 
-```
+```bash
 $DOCKER_REGISTRY/$DOCKER_REGISTRY_NAMESPACE/showmethatoken:<version>
 ```
 
