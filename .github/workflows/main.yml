@@ -23,7 +23,8 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version-file: 'go.mod'
-
+      - name: Lowercase registry namespace
+        run: echo "DOCKER_REGISTRY_NAMESPACE=${DOCKER_REGISTRY_NAMESPACE,,}" >> $GITHUB_ENV
       - name: Set GORELEASER_PREVIOUS_TAG
         if: ${{ !contains(github.ref, '-nightly') }}
         run: |
