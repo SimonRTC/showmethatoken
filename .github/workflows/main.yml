@@ -49,5 +49,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DOCKER_REGISTRY: ghcr.io
-          DOCKER_REGISTRY_NAMESPACE: ${{ github.repository_owner }}
+          DOCKER_REGISTRY_NAMESPACE: ${{ env.OWNER_LC }}
           GORELEASER_CURRENT_TAG: ${{ github.ref_name }}
