@@ -1,6 +1,6 @@
 version: 2
 snapshot:
-  name_template: "{{ .Branch }}-nightly-{{ .ShortCommit }}"
+  version_template: "{{ .Branch }}-nightly-{{ .ShortCommit }}"
 
 changelog:
   sort: asc
