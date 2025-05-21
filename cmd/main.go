@@ -64,7 +64,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 	trimmedToken := trimBearerPrefix(rawToken)
 
 	klog.Infof("Request from user=%q, token=%q", user, redactToken(trimmedToken))
-	fmt.Fprintf(w, "Bearer: %s\nLog in with this token:\nkubectl config set-credentials %s --token=%s", trimmedToken, user, trimmedToken)
+	fmt.Fprintf(w, "Bearer: %s\n\nLog in with this token:\nkubectl config set-credentials %s --token=%s", trimmedToken, user, trimmedToken)
 }
 
 // redactToken masks the middle 80% of the token string to avoid exposing secrets.
